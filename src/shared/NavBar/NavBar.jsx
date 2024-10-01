@@ -11,9 +11,10 @@ const NavBar = () => {
                     <Link to="/customeBuilder" className="ml-4 text-[16px] font-normal underline ">Start Your Custom</Link> </h2>
             </div>
 
-            <div className="navbar bg-base-100">
+            <div className="navbar bg-base-100 w-[1400px] mx-auto">
 
-                <div className="navbar-start">
+                <div className="navbar-start  w-[10%]">
+
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                             <svg
@@ -43,27 +44,31 @@ const NavBar = () => {
                             <li><a>Item 3</a></li>
                         </ul>
                     </div>
+
                     <a className="btn btn-ghost text-xl">Logo</a>
                 </div>
 
-                <div className="navbar-center hidden lg:flex">
+                <div className="navbar-center hidden lg:flex  w-[60%]">
+
                     <ul className="menu menu-horizontal px-1">
 
-                        <li> <Link className="text-inherit bg-transparent border-none"  to="/stockProducts">Stock Products</Link> </li>
-                        <li> <Link className=""  to="/trendingDesigns">Trending Designs</Link> </li>
-                        <li> <Link className=""  to="/team">Team 44</Link> </li>
-                        <li> <Link className=""  to="/help-center">Help Center</Link> </li>
+                        <li> <Link to="/stockProducts">Stock Products</Link> </li>
+                        <li> <Link to="/trendingDesigns">Trending Designs</Link> </li>
+                        <li> <Link to="/team">Team 44</Link> </li>
+                        <li> <Link to="/help-center">Help Center</Link> </li>
                         <li > <Link to="/customeBuilder"
-                            className="bg-gray-800 text-white hover:bg-gray-700 focus-within:bg-black focus-within:text-white "
+                        className="bg-gray-800 text-white hover:bg-gray-700 focus-within:bg-black focus-within:text-white "
                         > <FcGoogle className="text-[16px]" /> Custome Builder</Link> </li>
 
                     </ul>
+
                 </div>
-                <div className="navbar-end">
+
+                <div className="navbar-end  w-[30%]">
                     <a className="btn">Button</a>
                 </div>
-            </div>
 
+            </div>
         </div>
     );
 };
