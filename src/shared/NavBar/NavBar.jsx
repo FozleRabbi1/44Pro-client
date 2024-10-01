@@ -1,9 +1,15 @@
+import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 
 const NavBar = () => {
     return (
         <div>
+
+            <div>
+                <h2 className="bg-red-50 text-center py-4 text-xl font-[500]">FREE USA SHIPPING EVERYDAY
+                    <Link to="/customeBuilder" className="ml-4 text-[16px] font-normal underline ">Start Your Custom</Link> </h2>
+            </div>
 
             <div className="navbar bg-base-100">
 
@@ -43,13 +49,14 @@ const NavBar = () => {
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
 
-                        <li> <Link to="/stockProducts">Stock Products</Link> </li>
-                        <li> <Link to="/trendingDesigns">Trending Designs</Link> </li>
-                        <li> <Link to="/trendingDesigns">Trending Designs</Link> </li>
-                        <li> <Link to="/team">Team 44</Link> </li>
-                        <li> <Link to="/help-center">Help Center</Link> </li>
-                        <li> <Link to="/customeBuilder">Custome Builder</Link> </li>
-                        
+                        <li> <Link className="text-inherit bg-transparent border-none"  to="/stockProducts">Stock Products</Link> </li>
+                        <li> <Link className=""  to="/trendingDesigns">Trending Designs</Link> </li>
+                        <li> <Link className=""  to="/team">Team 44</Link> </li>
+                        <li> <Link className=""  to="/help-center">Help Center</Link> </li>
+                        <li > <Link to="/customeBuilder"
+                            className="bg-gray-800 text-white hover:bg-gray-700 focus-within:bg-black focus-within:text-white "
+                        > <FcGoogle className="text-[16px]" /> Custome Builder</Link> </li>
+
                     </ul>
                 </div>
                 <div className="navbar-end">
