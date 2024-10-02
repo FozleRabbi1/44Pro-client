@@ -13,8 +13,6 @@ const NavBar = () => {
                 <h2 className="bg-gray-200 text-center py-3 text-[22px] font-[550] opacity-90">
 
                     <img src={car} alt="" className="size-5 inline-block mr-3" />
-
-
                     FREE USA SHIPPING EVERYDAY
                     <Link to="/customeBuilder" className="ml-4 text-[16px] font-normal underline ">Start Your Custom</Link> </h2>
             </div>

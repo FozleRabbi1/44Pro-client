@@ -1,9 +1,12 @@
 import HeroSection from "./Hero/HeroSection";
+import PlayersChoose from "./PlayersChoose/PlayersChoose";
 
 const Home = () => {
     return (
-        <div>
-            <HeroSection/>
+        <div className="" >
+            <HeroSection />
+                <PlayersChoose />
+
         </div>
     );
 };

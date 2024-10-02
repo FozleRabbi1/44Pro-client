@@ -48,23 +48,17 @@ const HeroSection = () => {
                 {
                     heroDataObject.map(item => (
                         <SwiperSlide key={item._id} className='' >
-
                             <div className='relative'>
                                 <img className='w-full object-cover' src={item.img} alt="" />
                                 <div className='absolute w-[1536px] flex justify-between items-center top-0 left-1/2 -translate-x-1/2'>
                                     <img className=' object-cover' src={item.colorImg} alt="" />
-                                    <img className=' object-cover' src={item.img2} alt="" />
+                                    {/* <img className=' object-cover' src={item.img2} alt="" /> */}
                                 </div>
                             </div>
-
-
-
-
                         </SwiperSlide>
                     ))
                 }
             </Swiper>
-
         </div>
     );
 };
