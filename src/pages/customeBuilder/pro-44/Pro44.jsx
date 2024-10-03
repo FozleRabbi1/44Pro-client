@@ -9,8 +9,6 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 const Pro44 = () => {
     const swiperRef = useRef(null);
     const [nextPrevId, setNextPrev] = useState("Leather 1");
-
-    // Object to store colors for each section
     const [colorState, setColorState] = useState({
         "Leather 1": "#f3f4f6",
         "Leather 2": "#f3f4f6",
@@ -86,9 +84,6 @@ const Pro44 = () => {
         <div className="bg-gray-200 py-10">
             <div className="max-w-[1536px] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center justify-center">
-
-
-
                     <div>
                         <svg version="1.1" viewBox="0 0 900 859" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -163,7 +158,6 @@ const Pro44 = () => {
 
                     <div>
                         <div className="grid grid-cols-3" >
-
                             <div className="bg-gray-200 p-5 shadow-2xl hover:bg-gray-400" >
                                 <h2>Base</h2>
                                 <p>2 remaining </p>
@@ -176,8 +170,8 @@ const Pro44 = () => {
                                 <h2>Personalize</h2>
                                 <p>1 remaining </p>
                             </div>
-
                         </div>
+
                         <div className=" relative">
                             <Swiper
                                 spaceBetween={30}
@@ -192,23 +186,33 @@ const Pro44 = () => {
                                 onSwiper={(swiper) => {
                                     swiperRef.current = swiper;
                                 }}
+                                allowTouchMove={false}
                             >
                                 {
                                     glovesColorFieldName.map((item, i) => (
                                         <SwiperSlide key={item} className="overflow-hidden flex justify-center items-center text-center">
+
                                             <div className="flex justify-between bg-gray-300 p-3 ">
-                                                <button
-                                                    onClick={() => prevFun(i)}
-                                                    className="flex items-center text-sky-500 text-[16px] font-semibold"
-                                                >
-                                                    <FaChevronLeft /> Previous
-                                                </button>
-                                                <button
-                                                    onClick={() => nextFun(i)}
-                                                    className="flex items-center text-sky-500 text-[16px] font-semibold"
-                                                >
-                                                    Next <FaChevronRight />
-                                                </button>
+
+                                                {
+                                                    i === 0 ? <p></p> : <button
+                                                        onClick={() => prevFun(i)}
+                                                        className="flex items-center text-sky-500 text-[16px] font-semibold"
+                                                    >
+                                                        <FaChevronLeft /> Previous
+                                                    </button>
+
+                                                }
+
+                                                {
+                                                    i + 1 === glovesColorFieldName.length ? <p></p> :
+                                                        <button
+                                                            onClick={() => nextFun(i)}
+                                                            className="flex items-center text-sky-500 text-[16px] font-semibold"
+                                                        >
+                                                            Next <FaChevronRight />
+                                                        </button>
+                                                }
                                             </div>
                                             <h2 className="text-left text-2xl font-semibold bg-gray-100 p-3 ">{item}</h2>
                                             <div key={item} className="grid grid-cols-5 gap-5  h-[400px] bg-white p-4 ">
@@ -233,10 +237,6 @@ const Pro44 = () => {
                             </Swiper>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
         </div>
