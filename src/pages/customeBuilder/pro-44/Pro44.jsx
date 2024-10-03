@@ -54,7 +54,7 @@ const Pro44 = () => {
     ];
 
     const glovesColorFieldName = [
-        "Leather 1", "Leather 2", "Leather 3", "Leather 4", "Leather 5", "Leather 6", "Leather 7", "Leather 8", "Palm",
+        "Leather 1", "Leather 2", "Leather 3", "Leather 4", "Leather 5", "Leather 6", "Leather 7", "Leather 8",
         "Web", "Wrist", "Binding", "Welting", "Home Plate", "Logo Color", "Laces"
     ];
 
@@ -85,7 +85,7 @@ const Pro44 = () => {
     return (
         <div className="bg-gray-200 py-10">
             <div className="max-w-[1536px] mx-auto">
-                <div className="grid grid-cols-2 items-center justify-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center justify-center">
 
 
 
@@ -162,6 +162,22 @@ const Pro44 = () => {
 
 
                     <div>
+                        <div className="grid grid-cols-3" >
+
+                            <div className="bg-gray-200 p-5 shadow-2xl hover:bg-gray-400" >
+                                <h2>Base</h2>
+                                <p>2 remaining </p>
+                            </div>
+                            <div className="bg-gray-200 p-5 shadow-2xl hover:bg-gray-400 " >
+                                <h2>Colors</h2>
+                                <p>18 remaining </p>
+                            </div>
+                            <div className="bg-gray-200 p-5 shadow-2xl hover:bg-gray-400" >
+                                <h2>Personalize</h2>
+                                <p>1 remaining </p>
+                            </div>
+
+                        </div>
                         <div className=" relative">
                             <Swiper
                                 spaceBetween={30}
@@ -170,7 +186,7 @@ const Pro44 = () => {
                                     clickable: true,
                                 }}
                                 navigation={false}
-                                // speed={1000}
+                                speed={800}
                                 modules={[Navigation]}
                                 className="mySwiper  "
                                 onSwiper={(swiper) => {
