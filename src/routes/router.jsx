@@ -6,6 +6,9 @@ import TrendingDesigns from './../pages/TrendingDesigns/TrendingDesigns';
 import Team44 from './../pages/Team44/Team44';
 import HelpCenter from './../pages/HelpCenter/HelpCenter';
 import CustomBuilder from "../pages/customeBuilder/CustomBuilder";
+import Baseball from "../pages/customeBuilder/baseball/Baseball";
+import Infield from "../pages/customeBuilder/infield/Infield";
+import Pro44 from "../pages/customeBuilder/pro-44/Pro44";
 
 const routes = createBrowserRouter([
     {
@@ -34,8 +37,20 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/customeBuilder",
-                element: <CustomBuilder />
+                element: <CustomBuilder />,
             },
+            {
+                path: "/customeBuilder/baseball",
+                element: <Baseball />
+            },
+            {
+                path: "/customeBuilder/baseball/infield",
+                element: <Infield />
+            },
+            {
+                path: "/customeBuilder/baseball/infield/Pro44",
+                element: <Pro44 />
+            }
         ]
     }
 ])
