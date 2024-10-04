@@ -7,7 +7,9 @@ import { useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Pro44 = () => {
+    const swiperRef1 = useRef(null);
     const swiperRef = useRef(null);
+    const swiperRef3 = useRef(null);
     const [nextPrevId, setNextPrev] = useState("Leather 1");
     const [colorState, setColorState] = useState({
         "Leather 1": "#f3f4f6",
@@ -63,6 +65,14 @@ const Pro44 = () => {
         }));
     };
 
+    const prevFun1 = () => {
+        swiperRef1.current.slidePrev();
+    };
+
+    const nextFun1 = () => {
+        swiperRef1.current.slideNext();
+    };
+
     const prevFun = () => {
         const currentIndex = glovesColorFieldName.indexOf(nextPrevId);
         const newIndex = currentIndex > 0 ? currentIndex - 1 : 0;
@@ -80,10 +90,57 @@ const Pro44 = () => {
         swiperRef.current.slideNext();
     };
 
+    const prevFun3 = () => {
+        swiperRef3.current.slidePrev();
+    };
+
+    const nextFun3 = () => {
+        swiperRef3.current.slideNext();
+    };
+
+    const [show1, setShow1] = useState("block")
+    const [show2, setShow2] = useState("hidden")
+    const [show3, setShow3] = useState("hidden")
+
+    const base = () => {
+        setShow1("block")
+        setShow2("hidden")
+        setShow3("hidden")
+    }
+
+    const color = () => {
+        setShow1("hidden")
+        setShow2("block")
+        setShow3("hidden")
+    }
+
+    const personalize = () => {
+        setShow1("hidden")
+        setShow2("hidden")
+        setShow3("block")
+    }
+
+
+    const sizeArray = ["11", "11.25", "11.5", "11.75", "12", "12.25"];
+
+    const ThumbLogoData = [
+        { name: 'None' },
+        { name: 'Home Plate Logo' },
+        { name: 'Graphic (+$7)', description: "Change graphic and color on the next steps." },
+        { name: 'Premium Graphic (+$15)', description: "Change graphic on the next step." },
+        { name: 'Jumbo Number (+$7)', description: "Enter number and change color on the next step." },
+        { name: 'Stamped Flag (+$7)', description: "Choose a flag on the next step." },
+        { name: 'Custom Plate Number (+$7)', description: "Enter number and change color on the next step." },
+
+    ]
+
+
+
     return (
         <div className="bg-gray-200 py-10">
             <div className="max-w-[1536px] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center justify-center">
+
                     <div>
                         <svg version="1.1" viewBox="0 0 900 859" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -156,23 +213,116 @@ const Pro44 = () => {
 
 
 
-                    <div>
+                    <div className="mb-auto pt-10">
+
                         <div className="grid grid-cols-3" >
-                            <div className="bg-gray-200 p-5 shadow-2xl hover:bg-gray-400" >
+
+                            <div onClick={() => { base() }} className={`bg-gray-200 p-5 shadow-2xl hover:bg-gray-400 cursor-pointer ${show1 === "block" ? "bg-yellow-500 hover:bg-yellow-500" : ""} `} >
                                 <h2>Base</h2>
                                 <p>2 remaining </p>
                             </div>
-                            <div className="bg-gray-200 p-5 shadow-2xl hover:bg-gray-400 " >
+
+                            <div onClick={() => { color() }} className={`bg-gray-200 p-5 shadow-2xl hover:bg-gray-400 cursor-pointer ${show2 === "block" ? "bg-yellow-500 hover:bg-yellow-500" : ""} `} >
                                 <h2>Colors</h2>
                                 <p>18 remaining </p>
                             </div>
-                            <div className="bg-gray-200 p-5 shadow-2xl hover:bg-gray-400" >
+
+                            <div onClick={() => { personalize() }} className={`bg-gray-200 p-5 shadow-2xl hover:bg-gray-400 cursor-pointer ${show3 === "block" ? "bg-yellow-500 hover:bg-yellow-500" : ""} `} >
                                 <h2>Personalize</h2>
                                 <p>1 remaining </p>
                             </div>
+
                         </div>
 
-                        <div className=" relative">
+
+                        <div className={`relative ${show1}`}>
+                            <Swiper
+                                spaceBetween={30}
+                                centeredSlides={true}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                navigation={false}
+                                speed={800}
+                                modules={[Navigation]}
+                                className="mySwiper  "
+                                onSwiper={(swiper) => {
+                                    swiperRef1.current = swiper;
+                                }}
+                                allowTouchMove={false}
+                            >
+                                <SwiperSlide className="overflow-hidden flex justify-center items-center text-center bg-gray-50">
+
+                                    <div className="flex justify-between bg-gray-300 p-3">
+                                        <button
+                                            // onClick={() => prevFun1()}
+                                            className="flex items-center text-sky-500 text-[16px] font-semibold"
+                                        >
+                                            {/* <FaChevronLeft /> Previous */}
+                                        </button>
+                                        <button
+                                            onClick={() => nextFun1()}
+                                            className="flex items-center text-sky-500 text-[16px] font-semibold"
+                                        >
+                                            Next <FaChevronRight />
+                                        </button>
+                                    </div>
+
+
+                                    <div className="">
+                                        <div className="flex justify-between items-center px-10 pt-10 ">
+                                            <h2 className="text-2xl font-semibold">SIZE</h2>
+                                            <h2 className="text-gray-600">help</h2>
+                                        </div>
+                                        <div className="shadow-xl">
+                                            {
+                                                sizeArray?.map((item, i) => (
+                                                    <ul key={item}>
+                                                        <li className="text-left flex items-center border-b px-10 py-5">
+                                                            <input type="radio" name="radio-4" className="radio radio-accent mr-5" defaultChecked={i === 0} />
+                                                            {item}&quot;
+                                                        </li>
+                                                    </ul>
+                                                ))
+                                            }
+                                        </div>
+                                    </div>
+
+                                </SwiperSlide>
+
+
+                                <SwiperSlide className="overflow-hidden flex justify-center items-center text-center">
+
+                                    <div className="flex justify-between bg-gray-300 p-3">
+                                        <button
+                                            onClick={() => prevFun1()}
+                                            className="flex items-center text-sky-500 text-[16px] font-semibold"
+                                        >
+                                            <FaChevronLeft /> Previous
+                                        </button>
+
+                                        <button
+                                            onClick={() => nextFun1()}
+                                            className="flex items-center text-sky-500 text-[16px] font-semibold"
+                                        >
+                                            Next <FaChevronRight />
+                                        </button>
+                                    </div>
+
+                                    <div className=" ">
+                                        <div className="flex flex-col justify-center items-center">
+                                            <h2 className="text-2xl pt-5"> Comming Soon </h2>
+                                        </div>
+                                    </div>
+
+                                </SwiperSlide>
+
+                            </Swiper>
+                        </div>
+
+
+
+                        <div className={`relative ${show2}`}>
                             <Swiper
                                 spaceBetween={30}
                                 centeredSlides={true}
@@ -236,6 +386,100 @@ const Pro44 = () => {
                                     ))}
                             </Swiper>
                         </div>
+
+
+                        <div className={`relative ${show3}`}>
+                            <Swiper
+                                spaceBetween={30}
+                                centeredSlides={true}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                navigation={false}
+                                speed={800}
+                                modules={[Navigation]}
+                                className="mySwiper  "
+                                onSwiper={(swiper) => {
+                                    swiperRef3.current = swiper;
+                                }}
+                                allowTouchMove={false}
+                            >
+                                <SwiperSlide className="overflow-hidden flex justify-center items-center text-center">
+
+                                    <div className="flex justify-between bg-gray-300 p-3">
+                                        <p></p>
+
+                                        <button
+                                            onClick={() => nextFun3()}
+                                            className="flex items-center text-sky-500 text-[16px] font-semibold"
+                                        >
+                                            Next <FaChevronRight />
+                                        </button>
+                                    </div>
+
+                                    <div className=" ">
+                                        <h2 className="text-left px-10 py-5 text-2xl font-semibold bg-gray-100">Thumb Logo/Graphic</h2>
+
+                                        <div className="shadow-xl bg-gray-50">
+                                            {
+                                                ThumbLogoData?.map((item, i) => (
+                                                    <ul key={item}>
+                                                        <li className="text-left flex  items-center border-b px-10 py-5">
+                                                            <input type="radio" name="radio-4" className="radio radio-accent mr-5" defaultChecked={i === 0} />
+                                                            <div>
+                                                                <p className="text-xl">{item.name}</p>
+                                                                <p className="opacity-70">{item?.description}</p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                ))
+                                            }
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                </SwiperSlide>
+
+
+                                <SwiperSlide className="overflow-hidden flex justify-center items-center text-center">
+
+                                    <div className="flex justify-between bg-gray-300 p-3">
+
+                                        <button
+                                            onClick={() => prevFun3()}
+                                            className="flex items-center text-sky-500 text-[16px] font-semibold"
+                                        >
+                                            <FaChevronLeft /> Previous
+                                        </button>
+
+
+
+                                        <button
+                                            onClick={() => nextFun3()}
+                                            className="flex items-center text-sky-500 text-[16px] font-semibold"
+                                        >
+                                            Next <FaChevronRight />
+                                        </button>
+
+
+                                    </div>
+
+                                    <div className=" ">
+                                        <div className="flex flex-col justify-center items-center">
+                                            <h2>3333333333333333 hellowwwwwwwwwwwwwwwwww   222222222222222</h2>
+
+                                        </div>
+                                    </div>
+
+                                </SwiperSlide>
+
+                            </Swiper>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
