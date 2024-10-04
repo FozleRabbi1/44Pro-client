@@ -39,19 +39,7 @@ const CustomBuilder = () => {
 
                 </div>
             </div>
-
-
-
-
-         
-
-
-
-
-
-
-
-            <h2>this is custome builder</h2>
+            <h2>this is custome builderrrrrrr</h2>
 
         </div>
     );

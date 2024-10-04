@@ -3,14 +3,18 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Pro44 = () => {
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const swiperRef1 = useRef(null);
     const swiperRef = useRef(null);
     const swiperRef3 = useRef(null);
     const [nextPrevId, setNextPrev] = useState("Leather 1");
+    const [size, setSize] = useState(""); 
+    const [logoObj, setLogo] = useState(null); 
+
     const [colorState, setColorState] = useState({
         "Leather 1": "#f3f4f6",
         "Leather 2": "#f3f4f6",
@@ -29,6 +33,26 @@ const Pro44 = () => {
         "Logo Color": "gray",
         Laces: "#f3f4f6",
     });
+
+    console.log(37, isButtonDisabled);
+    
+
+    useEffect(() => {
+        console.log('Size:', size);
+        console.log('LogoObj:', logoObj);
+        console.log('ColorState:', colorState);
+
+        const allFieldsPopulated = size !== "" && logoObj !== null && Object.values(colorState).every(color => color !== "#f3f4f6");
+
+
+        if (allFieldsPopulated) {
+            setIsButtonDisabled(false); 
+        } else {
+            setIsButtonDisabled(true);
+        }
+
+    }, [size, logoObj, colorState]);
+
 
     const colors = [
         { name: "Black", value: "black" },
@@ -131,8 +155,16 @@ const Pro44 = () => {
         { name: 'Jumbo Number (+$7)', description: "Enter number and change color on the next step." },
         { name: 'Stamped Flag (+$7)', description: "Choose a flag on the next step." },
         { name: 'Custom Plate Number (+$7)', description: "Enter number and change color on the next step." },
-
     ]
+
+
+
+
+    const getGlovsData = () => {
+        console.log(size);
+        console.log(colorState);
+        console.log(logoObj);
+    }
 
 
 
@@ -185,7 +217,7 @@ const Pro44 = () => {
                             <path fill={colorState["Leather 2"]} transform="translate(553,369)" d="m0 0 4 1 18 12 10 8 8 8v2l4 2 1 3 4 2 4 4v18l-10 4-13 2h-8l-8-8-7-8-7-7-7-8-2-4 7-27z" />
                             <path fill={colorState["Leather 2"]} transform="translate(723,540)" d="m0 0 13 1 1 5-9 16-10 15-7 11-7 10-12 18-11 17-3 12-12 14-3 3h-8l-5 2 6-12 1-1 1-10 4 1 8-17 9-17 6-3v-7l5-9 3-5 1-2h2l2-7 6-8 4-8h2l2-5 1-3h2v-3h2l1-5z" />
                             <path fill={colorState["Leather 2"]} transform="translate(460,143)" d="m0 0h7l-10 27-16 47-13 42-12 42-7 22-2 7h-2l1-13 8-51 10-38 16-47 11-26 6-11z" />
-                            <path fill={colorState["Laces"]} transform="translate(175,402)" d="m0 0 13 4 1 1v8l-3 14-3 3-9 4 1 5 3 14 4 11 5 13 1 9-4 9-3 1-3-2-4-11v-5l-2-1v-4h-2l-6-17-2-9-1-20h-2v-8l1-3h2v-6l4-4 5-3h2v-2z" />
+                            {/* <path fill={colorState["Laces"]} transform="translate(175,402)" d="m0 0 13 4 1 1v8l-3 14-3 3-9 4 1 5 3 14 4 11 5 13 1 9-4 9-3 1-3-2-4-11v-5l-2-1v-4h-2l-6-17-2-9-1-20h-2v-8l1-3h2v-6l4-4 5-3h2v-2z" /> */}
                             <path fill={colorState["Logo Color"]} transform="translate(559,795)" d="m0 0 2 1-8 7-15 8-24 12-5 1v2l-13 4-19 3-12 2-14 2-15 1-4 1h-60l-4-1-18-2-25-7-13-8-5-5v-2l5 2 11 6 16 5 15 3 28 2h44l17-2 17-1 24-4 10-2 16-5 13-4 12-5 11-7 10-4z" />
                             <path fill={colorState["Logo Color"]} transform="translate(646,633)" d="m0 0 4 1 1 1v5l-6 9-3 7h2l-1 6-4 6-5 1-4 8 1 4-7 8-4 2-11 13-4-2v-29l7-9 6 3 7 5 6-10h-2l-10-10 2-4 4-5z" />
                             <path fill={colorState["Laces"]} transform="translate(426,42)" d="m0 0 11 1 10 4 6 4 1 3h2l2 10-1 1h-13l-21-5-17-1-3 2-13 4-3 2h-3l-1-4 3-4 3-7 3-5h2v-2l14-2z" />
@@ -234,7 +266,6 @@ const Pro44 = () => {
 
                         </div>
 
-
                         <div className={`relative ${show1}`}>
                             <Swiper
                                 spaceBetween={30}
@@ -268,28 +299,26 @@ const Pro44 = () => {
                                         </button>
                                     </div>
 
-
                                     <div className="">
                                         <div className="flex justify-between items-center px-10 pt-10 ">
                                             <h2 className="text-2xl font-semibold">SIZE</h2>
                                             <h2 className="text-gray-600">help</h2>
                                         </div>
                                         <div className="shadow-xl">
-                                            {
-                                                sizeArray?.map((item, i) => (
-                                                    <ul key={item}>
-                                                        <li className="text-left flex items-center border-b px-10 py-5">
-                                                            <input type="radio" name="radio-4" className="radio radio-accent mr-5" defaultChecked={i === 0} />
+                                            <ul>
+                                                {
+                                                    sizeArray?.map((item, i) => (
+                                                        <li key={i} className="text-left flex items-center border-b px-10 py-5">
+                                                            <input onClick={() => setSize(item)} type="radio" name="radio-4" className="radio radio-accent mr-5" defaultChecked />
                                                             {item}&quot;
                                                         </li>
-                                                    </ul>
-                                                ))
-                                            }
+                                                    ))
+                                                }
+                                            </ul>
                                         </div>
                                     </div>
 
                                 </SwiperSlide>
-
 
                                 <SwiperSlide className="overflow-hidden flex justify-center items-center text-center">
 
@@ -319,8 +348,6 @@ const Pro44 = () => {
 
                             </Swiper>
                         </div>
-
-
 
                         <div className={`relative ${show2}`}>
                             <Swiper
@@ -387,7 +414,6 @@ const Pro44 = () => {
                             </Swiper>
                         </div>
 
-
                         <div className={`relative ${show3}`}>
                             <Swiper
                                 spaceBetween={30}
@@ -421,24 +447,20 @@ const Pro44 = () => {
                                         <h2 className="text-left px-10 py-5 text-2xl font-semibold bg-gray-100">Thumb Logo/Graphic</h2>
 
                                         <div className="shadow-xl bg-gray-50">
-                                            {
-                                                ThumbLogoData?.map((item, i) => (
-                                                    <ul key={item}>
-                                                        <li className="text-left flex  items-center border-b px-10 py-5">
-                                                            <input type="radio" name="radio-4" className="radio radio-accent mr-5" defaultChecked={i === 0} />
+                                            <ul className="max-h-[450px] overflow-y-auto" >
+                                                {
+                                                    ThumbLogoData?.map((item, i) => (
+                                                        <li key={i} className="text-left flex  items-center border-b px-10 py-5">
+                                                            <input onClick={() => { setLogo(item) }} type="radio" name="radio-4" className="radio radio-accent mr-5" defaultChecked />
                                                             <div>
                                                                 <p className="text-xl">{item.name}</p>
                                                                 <p className="opacity-70">{item?.description}</p>
                                                             </div>
                                                         </li>
-                                                    </ul>
-                                                ))
-                                            }
+                                                    ))
+                                                }
+                                            </ul>
                                         </div>
-
-
-
-
                                     </div>
 
                                 </SwiperSlide>
@@ -477,6 +499,16 @@ const Pro44 = () => {
                                 </SwiperSlide>
 
                             </Swiper>
+                        </div>
+
+                        <div>
+                            <button
+                                onClick={() => getGlovsData()}
+                                className={`bg-gray-100 mt-3 px-16 py-3 text-xl font-light rounded-md ${isButtonDisabled ? 'opacity-50 cursor-not-allowed ' : ''}`}
+                                disabled={isButtonDisabled} 
+                            >
+                                Add To Cart
+                            </button>
                         </div>
 
 
