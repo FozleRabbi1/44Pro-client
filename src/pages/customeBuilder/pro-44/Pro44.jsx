@@ -42,13 +42,13 @@ const Pro44 = () => {
         console.log('LogoObj:', logoObj);
         console.log('ColorState:', colorState);
 
-        const allFieldsPopulated = size !== "" && logoObj !== null && Object.values(colorState).every(color => color !== "#f3f4f6");
+        // const allFieldsPopulated = size !== "" && logoObj !== null && Object.values(colorState).every(color => color !== "#f3f4f6");
 
 
-        if (allFieldsPopulated) {
-            setIsButtonDisabled(false); 
-        } else {
+        if (!logoObj || !size ) {  // kaj hosse but ektu stady korte hobe eita niye
             setIsButtonDisabled(true);
+        } else {
+            setIsButtonDisabled(false); 
         }
 
     }, [size, logoObj, colorState]);
@@ -504,7 +504,7 @@ const Pro44 = () => {
                         <div>
                             <button
                                 onClick={() => getGlovsData()}
-                                className={`bg-gray-100 mt-3 px-16 py-3 text-xl font-light rounded-md ${isButtonDisabled ? 'opacity-50 cursor-not-allowed ' : ''}`}
+                                className={`bg-gray-100 mt-3 px-16 py-3 text-xl font-light rounded-md ${isButtonDisabled ? 'cursor-not-allowed' : ''}`}
                                 disabled={isButtonDisabled} 
                             >
                                 Add To Cart
