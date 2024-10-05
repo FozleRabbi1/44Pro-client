@@ -9,6 +9,8 @@ import CustomBuilder from "../pages/customeBuilder/CustomBuilder";
 import Baseball from "../pages/customeBuilder/baseball/Baseball";
 import Infield from "../pages/customeBuilder/infield/Infield";
 import Pro44 from "../pages/customeBuilder/pro-44/Pro44";
+import Registration from "../pages/auth/registration/Registration";
+import Login from "../pages/auth/login/Login";
 
 const routes = createBrowserRouter([
     {
@@ -52,7 +54,9 @@ const routes = createBrowserRouter([
                 element: <Pro44 />
             }
         ]
-    }
+    },
+    { path : "/login", element : <Login/> },
+    { path : "/registration", element : <Registration/> }
 ])
 
 

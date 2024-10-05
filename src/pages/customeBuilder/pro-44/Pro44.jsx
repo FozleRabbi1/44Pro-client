@@ -38,10 +38,6 @@ const Pro44 = () => {
     
 
     useEffect(() => {
-        console.log('Size:', size);
-        console.log('LogoObj:', logoObj);
-        console.log('ColorState:', colorState);
-
         // const allFieldsPopulated = size !== "" && logoObj !== null && Object.values(colorState).every(color => color !== "#f3f4f6");
 
 
