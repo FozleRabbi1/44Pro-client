@@ -1,6 +1,12 @@
 import { useForm } from 'react-hook-form';
+import authApi from '../../../redux/fetures/auth/authApi';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate()
+
+    const [login] = authApi.useLoginMutation()
     const {
         register,
         handleSubmit,
@@ -8,8 +14,17 @@ const Login = () => {
     } = useForm();
 
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+
+        const res = await login(data);
+        console.log(res.data.message);
+
+        if (res?.data.success) {
+            toast.success(res?.data.message)
+            navigate("/")
+        }
+
+
     };
 
     return (
@@ -71,6 +86,8 @@ const Login = () => {
                             Login
                         </button>
                     </div>
+
+
                 </form>
             </div>
         </div>

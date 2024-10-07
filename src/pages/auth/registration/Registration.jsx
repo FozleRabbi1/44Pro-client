@@ -1,7 +1,15 @@
 import { useForm } from 'react-hook-form';
+import authApi from '../../../redux/fetures/auth/authApi';
+import { toast } from 'react-toastify';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
-    const inputStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    const inputStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
+    const [registerUser] = authApi.useRegisterUserMutation();
+    const [verifyOTP] = authApi.useVerifyOTPMutation()
+    const [userEmail, setUserEmail] = useState("")
+    const navigate = useNavigate()
 
     const {
         register,
@@ -12,10 +20,38 @@ const Registration = () => {
     const password = watch('password', '');
 
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        setUserEmail(data?.email)
+        const res = await registerUser(data);
 
-        console.log(data);
+        if (res?.data?.data.success) {
 
+            toast(res?.data?.data.message)
+            document.getElementById('my_modal_3').showModal()
+
+        }
+
+        if (res?.data?.success) {
+            toast.success(res?.data.message)
+        }
+        if (res?.error?.status === 400) {
+            toast.error(res?.error.data.message)
+            // res?.error.data.errorSources.map(item => toast.error(item?.message))
+        }
+
+    };
+
+    const verifyOtp = async (otp) => {
+        const verifyData = { email: userEmail, otp }
+        const res = await verifyOTP(verifyData);
+
+        if (res?.data?.success) {
+            toast.success(res?.data.message);
+            document.getElementById('my_modal_3').close();
+            navigate("/login")
+        } else {
+            toast.error(res?.data?.message);
+        }
     };
 
 
@@ -34,7 +70,7 @@ const Registration = () => {
                             Username
                         </label>
                         <input
-                            {...register('username', { required: 'Username is required' })}
+                            {...register('name', { required: 'Username is required' })}
                             type="text"
                             className={inputStyle}
                             placeholder="Enter your username"
@@ -116,8 +152,37 @@ const Registration = () => {
                     </div>
                 </form>
             </div>
-        </div>
 
+
+            <dialog id="my_modal_3" className="modal">
+                <div className="modal-box">
+                    <div className="modal-content flex flex-col items-center ">
+                        <h2>Enter OTP</h2>
+                        <form
+                            className="flex flex-col justify-center items-center p-8 focus:bg-slate-600"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                verifyOtp(e.target.otp.value);
+                            }}
+                        >
+                            <input
+                                name="otp"
+                                type="text"
+                                className="bg-gray-800 text-white border border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md px-4 py-2"
+                                required
+                            />
+                            <button type="submit" className="mt-5">
+                                Verify OTP
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </dialog>
+
+
+
+        </div>
     );
 };
 
