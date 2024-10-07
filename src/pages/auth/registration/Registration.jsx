@@ -25,18 +25,19 @@ const Registration = () => {
         const res = await registerUser(data);
 
         if (res?.data?.data.success) {
-
             toast(res?.data?.data.message)
             document.getElementById('my_modal_3').showModal()
-
+            return
         }
 
         if (res?.data?.success) {
             toast.success(res?.data.message)
+            return
         }
         if (res?.error?.status === 400) {
             toast.error(res?.error.data.message)
             // res?.error.data.errorSources.map(item => toast.error(item?.message))
+            return
         }
 
     };
