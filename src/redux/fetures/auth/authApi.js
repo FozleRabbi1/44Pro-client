@@ -9,7 +9,7 @@ const authApi = baseApi.injectEndpoints({
         return {        
             url: "/auth/create-user",
             method: "POST",
-            body: {user},         
+            body: {user},
         }
       },
       invalidatesTags: ["all-users"],

@@ -12,6 +12,7 @@ const Registration = () => {
     const navigate = useNavigate()
 
 
+
     const {
         register,
         handleSubmit,
@@ -25,11 +26,24 @@ const Registration = () => {
         setUserEmail(data?.email)
         const res = await registerUser(data);
 
-        if (res?.data?.data.success) {
-            toast(res?.data?.data.message)
+
+        if (res?.data?.success) {
+            toast(res?.data?.message)
             document.getElementById('my_modal_3').showModal()
             return
         }
+
+        if (res?.data?.data.success | res?.data.success) {
+            toast(res?.data?.data.message | res?.data?.message)
+            document.getElementById('my_modal_3').showModal()
+            return
+        }
+
+        if (!res?.error?.data.success) {
+            toast.error(res?.error?.data?.message)
+            return
+        }
+
 
         if (res?.data?.success) {
             toast.success(res?.data.message)
@@ -46,6 +60,11 @@ const Registration = () => {
     const verifyOtp = async (otp) => {
         const verifyData = { email: userEmail, otp }
         const res = await verifyOTP(verifyData);
+
+        if (res?.error?.status === 400) {
+            toast.error(res?.error?.data.message)
+        }
+
 
         if (res?.data?.success) {
             toast.success(res?.data.message);
@@ -150,7 +169,7 @@ const Registration = () => {
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-[120px] flex justify-center items-center "
                         >
                             {
-                                isLoading  ? <span className="loading loading-dots loading-md"></span> : "Register"
+                                isLoading ? <span className="loading loading-dots loading-md"></span> : "Register"
                             }
                         </button>
                     </div>
