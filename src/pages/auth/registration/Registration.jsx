@@ -6,10 +6,11 @@ import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
     const inputStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
-    const [registerUser] = authApi.useRegisterUserMutation();
-    const [verifyOTP] = authApi.useVerifyOTPMutation()
+    const [registerUser, { isLoading }] = authApi.useRegisterUserMutation();
+    const [verifyOTP, { isLoading: verifyLoading }] = authApi.useVerifyOTPMutation()
     const [userEmail, setUserEmail] = useState("")
     const navigate = useNavigate()
+
 
     const {
         register,
@@ -146,9 +147,11 @@ const Registration = () => {
                     <div className="flex items-center justify-between">
                         <button
                             type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-[120px] flex justify-center items-center "
                         >
-                            Register
+                            {
+                                isLoading  ? <span className="loading loading-dots loading-md"></span> : "Register"
+                            }
                         </button>
                     </div>
                 </form>
@@ -169,11 +172,13 @@ const Registration = () => {
                             <input
                                 name="otp"
                                 type="text"
-                                className="bg-gray-800 text-white border border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md px-4 py-2"
+                                className="bg-gray-800 text-white border border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md px-4 py-2 text-center"
                                 required
                             />
                             <button type="submit" className="mt-5">
-                                Verify OTP
+                                {
+                                    verifyLoading ? <span className="loading loading-dots loading-md"></span> : "Verify OTP"
+                                }
                             </button>
                         </form>
 
