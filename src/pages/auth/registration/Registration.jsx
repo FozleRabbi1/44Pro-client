@@ -26,6 +26,7 @@ const Registration = () => {
         setUserEmail(data?.email)
         const res = await registerUser(data);
 
+        // console.log(res?.error?.data.success);      
 
         if (res?.data?.success) {
             toast(res?.data?.message)
@@ -33,17 +34,16 @@ const Registration = () => {
             return
         }
 
-        if (res?.data?.data.success | res?.data.success) {
-            toast(res?.data?.data.message | res?.data?.message)
+        if (res?.data?.data.success ) {
+            toast(res?.data?.data.message)
             document.getElementById('my_modal_3').showModal()
             return
         }
 
-        if (!res?.error?.data.success) {
+        if (res?.error?.data.success == false) {
             toast.error(res?.error?.data?.message)
             return
         }
-
 
         if (res?.data?.success) {
             toast.success(res?.data.message)
