@@ -6,12 +6,12 @@ import './AllUsersStyle.css';
 import { toast } from "react-toastify";
 
 const AllUsers = () => {
-    const { data } = authApi.useGetALlUserQuery()
+    const { data, isLoading: userLoading } = authApi.useGetALlUserQuery()
     const [sendEmail, { isLoading }] = authApi.useSendEmailMutation()
     const [value, setValue] = useState('');
-    const [email, setEmail] = useState("");
+    // const [email, setEmail] = useState("");
     const [subject, setSubject] = useState("")
-    
+    const [selectedEmails, setSelectedEmails] = useState([]);
 
 
     const modules = {
@@ -36,12 +36,29 @@ const AllUsers = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = { email, subject, value }
+        const data = { email: selectedEmails, subject, value }
         const res = await sendEmail(data)
         if (res?.data?.success) {
             toast.success(res?.data?.message)
         }
     }
+
+    const handleClick = (email) => {
+        if (selectedEmails.includes(email)) {
+            setSelectedEmails(selectedEmails.filter((e) => e !== email));
+        } else {
+            setSelectedEmails([...selectedEmails, email]);
+        }
+    };
+
+    const handleSelectAll = () => {
+        if (selectedEmails.length === data?.data.length) {
+            setSelectedEmails([]);
+        } else {
+            const allEmails = data?.data.map((item) => item.email);
+            setSelectedEmails(allEmails);
+        }
+    };
 
 
     return (
@@ -49,16 +66,34 @@ const AllUsers = () => {
             <h2 className="text-center py-10 text-4xl">All Users</h2>
 
             <div className="grid grid-cols-5 w-[1356px] mx-auto gap-10">
-
                 <div className="col-span-2">
+                    <button
+                        onClick={handleSelectAll}
+                        className="border rounded px-3 py-1 mb-3 text-[17px] font-semibold"
+                    >
+                        {selectedEmails.length === data?.data.length ? 'Deselect All Users' : 'Select All Users'}
+                    </button>
+
                     {
-                        data?.data.map(item => (
-                            <div onClick={() => setEmail(item?.email)} key={item?._id} className="mb-3 bg-gray-200 p-2 rounded cursor-pointer" >
-                                <h2>{item.name}</h2>
-                                <p className="text-[12px]">{item.email}</p>
+                        userLoading ? "Loading..." : (
+                            <div>
+                                {
+                                    data?.data.map((item) => (
+                                        <div
+                                            onClick={() => handleClick(item?.email)}
+                                            key={item?._id}
+                                            className={`mb-3 p-2 rounded cursor-pointer ${selectedEmails.includes(item?.email) ? 'bg-green-200' : 'bg-gray-200'
+                                                }`}
+                                        >
+                                            <h2>{item.name}</h2>
+                                            <p className="text-[12px]">{item.email}</p>
+                                        </div>
+                                    ))
+                                }
                             </div>
-                        ))
+                        )
                     }
+
                 </div>
 
                 <div className="col-span-3">
