@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import authApi from '../../../redux/fetures/auth/authApi';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -85,6 +85,10 @@ const Login = () => {
                         >
                             Login
                         </button>
+                    </div>
+
+                    <div className='mt-3'>
+                        <p>If You Are Not Registred Go For <Link to="/registration" className=' text-blue-600 font-semibold'>Registration </Link>  </p>
                     </div>
 
 

@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import authApi from '../../../redux/fetures/auth/authApi';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Registration = () => {
     const inputStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
@@ -34,7 +34,7 @@ const Registration = () => {
             return
         }
 
-        if (res?.data?.data.success ) {
+        if (res?.data?.data.success) {
             toast(res?.data?.data.message)
             document.getElementById('my_modal_3').showModal()
             return
@@ -173,7 +173,13 @@ const Registration = () => {
                             }
                         </button>
                     </div>
+
+                    <div className='mt-3'>
+                        <p>If You Are Already Registred Go To <Link to="/login" className=' text-blue-600 font-semibold'>Login </Link>  </p>
+                    </div>
+
                 </form>
+
             </div>
 
 
@@ -199,6 +205,7 @@ const Registration = () => {
                                     verifyLoading ? <span className="loading loading-dots loading-md"></span> : "Verify OTP"
                                 }
                             </button>
+                            
                         </form>
 
                     </div>

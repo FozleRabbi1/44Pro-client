@@ -11,6 +11,7 @@ import Infield from "../pages/customeBuilder/infield/Infield";
 import Pro44 from "../pages/customeBuilder/pro-44/Pro44";
 import Registration from "../pages/auth/registration/Registration";
 import Login from "../pages/auth/login/Login";
+import AllUsers from "../pages/allUser/AllUsers";
 
 const routes = createBrowserRouter([
     {
@@ -56,7 +57,8 @@ const routes = createBrowserRouter([
         ]
     },
     { path : "/login", element : <Login/> },
-    { path : "/registration", element : <Registration/> }
+    { path : "/registration", element : <Registration/> },
+    { path : "/all-Users", element : <AllUsers/> },
 ])
 
 

@@ -18,9 +18,7 @@ const NavBar = () => {
             </div>
 
             <div className="navbar bg-base-100 max-w-[1536px] mx-auto">
-
                 <div className="navbar-start  w-[10%]">
-
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                             <svg
@@ -77,11 +75,13 @@ const NavBar = () => {
 
                 <div className="navbar-end w-[30%]">
                     <ul className="flex items-center text-[1rem] ">
-                        <li className="mr-3" > My Account </li>
+                        <li className="mr-3"  > <Link to="/all-Users">All-User</Link> </li>
                         <li className="mr-3 relative" >
                             <FaShoppingCart className="text-[2rem]" />
                             <span className="bg-sky-600 text-white size-5 block text-[16px] flex justify-center items-center rounded-full absolute -top-2 -right-2 " >0</span>
                         </li>
+                        <li className="mr-3" > <Link to="/registration">Registration</Link> </li>
+
                     </ul>
                 </div>
 

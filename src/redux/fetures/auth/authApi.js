@@ -4,6 +4,16 @@ const authApi = baseApi.injectEndpoints({
   
   endpoints: (builder) => ({
 
+    getALlUser: builder.query({
+      query: () => {
+        return {        
+            url: "/auth",
+            method: "GET"
+        }
+      },
+      providesTags : ["all-users"],
+    }),
+
     registerUser: builder.mutation({
       query: (user) => {
         return {        
@@ -32,6 +42,18 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: userInfo,
       }),
+    }),
+
+    sendEmail: builder.mutation({
+      query: (emailInfo) => {
+        console.log(49,  emailInfo);
+        
+        return {
+          url: "/auth/sendEmail",
+          method: "POST",
+          body: emailInfo,
+        }
+      },
     }),
 
 
