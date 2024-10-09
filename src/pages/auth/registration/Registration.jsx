@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import authApi from '../../../redux/fetures/auth/authApi';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Registration = () => {
@@ -76,10 +76,39 @@ const Registration = () => {
     };
 
 
+    // ======================================================== fill up OTP function Start
+    const [otp, setOtp] = useState(new Array(6).fill(""));
+    const inputRefs = useRef([]);
+    const handleChange = (element, index) => {
+        if (/^[0-9]$/.test(element.value)) {
+            const newOtp = [...otp];
+            newOtp[index] = element.value;
+            setOtp(newOtp);
+
+            if (index < 5 && element.value !== "") {
+                inputRefs.current[index + 1].focus();
+            }
+        }
+    };
+    const handleBackspace = (event, index) => {
+        if (event.key === "Backspace" && otp[index] === "") {
+            if (index > 0) {
+                inputRefs.current[index - 1].focus();
+            }
+        }
+    };
+    const handleOTPSubmit = (e) => {
+        e.preventDefault();
+        verifyOtp(otp.join(''));
+    };
+    // ======================================================== fill up OTP function End
+
+
     return (
 
         <div className=' h-screen flex items-center justify-center'>
-            <div className="w-[25%] ">
+
+            <div className="w-[25%]">
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -179,11 +208,46 @@ const Registration = () => {
                     </div>
 
                 </form>
-
             </div>
 
 
             <dialog id="my_modal_3" className="modal">
+                <div className="modal-box">
+                    <div className="modal-content flex flex-col items-center">
+                        <h2>Enter OTP</h2>
+                        <form
+                            className="flex flex-col justify-center items-center p-8"
+                            onSubmit={handleOTPSubmit}
+                        >
+                            <div className="flex space-x-2">
+                                {otp.map((_, index) => (
+                                    <input
+                                        key={index}
+                                        type="text"
+                                        maxLength="1"
+                                        value={otp[index]}
+                                        onChange={(e) => handleChange(e.target, index)}
+                                        onKeyDown={(e) => handleBackspace(e, index)}
+                                        ref={(el) => (inputRefs.current[index] = el)}
+                                        className="bg-gray-800 text-white border border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md px-4 py-2 text-center w-12"
+                                        required
+                                    />
+                                ))}
+                            </div>
+                            <button type="submit" className="mt-5">
+                                {verifyLoading ? (
+                                    <span className="loading loading-dots loading-md"></span>
+                                ) : (
+                                    "Verify OTP"
+                                )}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
+  
+  
+            {/* <dialog id="my_modal_3" className="modal">
                 <div className="modal-box">
                     <div className="modal-content flex flex-col items-center ">
                         <h2>Enter OTP</h2>
@@ -205,14 +269,12 @@ const Registration = () => {
                                     verifyLoading ? <span className="loading loading-dots loading-md"></span> : "Verify OTP"
                                 }
                             </button>
-                            
+
                         </form>
 
                     </div>
                 </div>
-            </dialog>
-
-
+            </dialog> */}
 
         </div>
     );

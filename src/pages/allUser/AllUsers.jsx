@@ -6,17 +6,15 @@ import './AllUsersStyle.css';
 import { toast } from "react-toastify";
 
 const AllUsers = () => {
-    const { data, isLoading: userLoading } = authApi.useGetALlUserQuery()
-    const [sendEmail, { isLoading }] = authApi.useSendEmailMutation()
+    const { data, isLoading: userLoading } = authApi.useGetALlUserQuery();
+    const [sendEmail, { isLoading }] = authApi.useSendEmailMutation();
     const [value, setValue] = useState('');
-    // const [email, setEmail] = useState("");
-    const [subject, setSubject] = useState("")
+    const [subject, setSubject] = useState("");
     const [selectedEmails, setSelectedEmails] = useState([]);
-
+    // const [files, setFiles] = useState([]);
 
     const modules = {
         toolbar: [
-            // [ { 'header': '1' }, { 'header': '2' }, { 'font': [] }],
             [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
             [{ 'font': [] }],
             [{ size: [] }],
@@ -27,21 +25,28 @@ const AllUsers = () => {
         ],
     };
 
-    const formats = [
-        'header', 'font', 'size',
-        'bold', 'italic', 'underline', 'strike', 'blockquote',
-        'list', 'bullet',
-        'link', 'image', 'video'
-    ];
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = { email: selectedEmails, subject, value }
-        const res = await sendEmail(data)
+
+        const data = { email: selectedEmails, subject, value };
+
+        // const attachments = [];
+        // for (let i = 0; i < files.length; i++) {
+        //     attachments.push({
+        //         filename: files[i].name,
+        //         content: files[i], 
+        //     });
+        // }
+
+        const res = await sendEmail(data);
         if (res?.data?.success) {
-            toast.success(res?.data?.message)
+            toast.success(res?.data?.message);
+            setValue('');
+            setSubject('');
+            setSelectedEmails([]);
+            // setFiles([]); 
         }
-    }
+    };
 
     const handleClick = (email) => {
         if (selectedEmails.includes(email)) {
@@ -60,7 +65,6 @@ const AllUsers = () => {
         }
     };
 
-
     return (
         <div>
             <h2 className="text-center py-10 text-4xl">All Users</h2>
@@ -75,17 +79,16 @@ const AllUsers = () => {
                     </button>
 
                     {
-                        userLoading ? "Loading..." : (
+                        userLoading ? <p className="text-xl">Loading...</p> : (
                             <div>
                                 {
                                     data?.data.map((item) => (
                                         <div
                                             onClick={() => handleClick(item?.email)}
                                             key={item?._id}
-                                            className={`mb-3 p-2 rounded cursor-pointer ${selectedEmails.includes(item?.email) ? 'bg-green-200' : 'bg-gray-200'
-                                                }`}
+                                            className={`mb-3 p-2 rounded cursor-pointer ${selectedEmails.includes(item?.email) ? 'bg-green-200' : 'bg-gray-200'}`}
                                         >
-                                            <h2>{item.name}</h2>
+                                            <h2 className="font-semibold text-[14px]">{item.name}</h2>
                                             <p className="text-[12px]">{item.email}</p>
                                         </div>
                                     ))
@@ -97,28 +100,37 @@ const AllUsers = () => {
                 </div>
 
                 <div className="col-span-3">
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            className="border mb-3 px-2 py-2 w-full rounded"
+                            type="text"
+                            placeholder="Subject"
+                            onChange={(e) => setSubject(e.target.value)}
+                        />
 
-                    <form action="" onSubmit={handleSubmit} >
-                        <input className=" border mb-3 px-2 py-2 w-full  rounded" type="text" placeholder="Subject" onChange={(e) => setSubject(e.target.value)} />
-
-                        <ReactQuill theme="snow"
+                        <ReactQuill
+                            theme="snow"
                             modules={modules}
-                            formats={formats}
                             value={value}
-                            onChange={setValue} />
+                            onChange={setValue}
+                        />
+
+                        {/* <input
+                            type="file"
+                            multiple
+                            className="border mb-3 px-2 py-2 w-full rounded"
+                            onChange={(e) => setFiles(e.target.files)} 
+                        /> */}
 
                         <div className="mt-3">
-                            <button type="submit" className="button w-[120px] flex items-center justify-center py-2 " >
+                            <button type="submit" className="button w-[120px] flex items-center justify-center py-2 mb-10">
                                 {
-                                    isLoading ? <span className="loading loading-dots loading-md "></span> : "Send"
+                                    isLoading ? <span className="loading loading-dots loading-md"></span> : "Send"
                                 }
                             </button>
                         </div>
-
                     </form>
-
                 </div>
-
             </div>
         </div>
     );
