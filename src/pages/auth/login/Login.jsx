@@ -2,9 +2,13 @@ import { useForm } from 'react-hook-form';
 import authApi from '../../../redux/fetures/auth/authApi';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from './../../../redux/hooks';
+import { verifyToken } from '../../../util/verifyToken';
+import { setUser } from '../../../redux/fetures/auth/authSlice';
 
 const Login = () => {
     const navigate = useNavigate()
+    const dispatch = useAppDispatch();
 
     const [login] = authApi.useLoginMutation()
     const {
@@ -16,15 +20,20 @@ const Login = () => {
 
     const onSubmit = async (data) => {
 
-        const res = await login(data);
-        console.log(res.data.message);
-
-        if (res?.data.success) {
-            toast.success(res?.data.message)
-            navigate("/")
+        try {
+            const res = await login(data).unwrap();
+            const token = res.data.accessToken;
+            const user = verifyToken(token);
+            dispatch(setUser({ user, token }));
+            console.log(res);
+            
+            if (res?.success) {
+                toast.success(res?.message)
+                navigate("/")
+            }
+        } catch (err) {
+            console.log(err);
         }
-
-
     };
 
     return (

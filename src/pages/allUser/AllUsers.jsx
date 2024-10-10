@@ -4,6 +4,8 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import './AllUsersStyle.css';
 import { toast } from "react-toastify";
+// import { useSelector } from "react-redux";
+// import { selectCurrentUser } from "../../redux/fetures/auth/authSlice";
 
 const AllUsers = () => {
     const { data, isLoading: userLoading } = authApi.useGetALlUserQuery();
@@ -11,7 +13,11 @@ const AllUsers = () => {
     const [value, setValue] = useState('');
     const [subject, setSubject] = useState("");
     const [selectedEmails, setSelectedEmails] = useState([]);
-    // const [files, setFiles] = useState([]);
+
+    // const currentUser = useSelector(selectCurrentUser);
+
+    // console.log(currentUser?.email);
+
 
     const modules = {
         toolbar: [
@@ -28,15 +34,8 @@ const AllUsers = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = { email: selectedEmails, subject, value };
-
-        // const attachments = [];
-        // for (let i = 0; i < files.length; i++) {
-        //     attachments.push({
-        //         filename: files[i].name,
-        //         content: files[i], 
-        //     });
-        // }
+        // const data = { email: selectedEmails, subject, value, senderEmail : currentUser?.email };
+        const data = { email: selectedEmails, subject, value};
 
         const res = await sendEmail(data);
         if (res?.data?.success) {
@@ -44,7 +43,6 @@ const AllUsers = () => {
             setValue('');
             setSubject('');
             setSelectedEmails([]);
-            // setFiles([]); 
         }
     };
 
@@ -114,14 +112,6 @@ const AllUsers = () => {
                             value={value}
                             onChange={setValue}
                         />
-
-                        {/* <input
-                            type="file"
-                            multiple
-                            className="border mb-3 px-2 py-2 w-full rounded"
-                            onChange={(e) => setFiles(e.target.files)} 
-                        /> */}
-
                         <div className="mt-3">
                             <button type="submit" className="button w-[120px] flex items-center justify-center py-2 mb-10">
                                 {
