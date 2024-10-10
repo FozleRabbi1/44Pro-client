@@ -45,9 +45,7 @@ const authApi = baseApi.injectEndpoints({
     }),
 
     sendEmail: builder.mutation({
-      query: (emailInfo) => {
-        console.log(49,  emailInfo);
-        
+      query: (emailInfo) => {        
         return {
           url: "/auth/sendEmail",
           method: "POST",

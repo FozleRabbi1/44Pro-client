@@ -4,8 +4,6 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import './AllUsersStyle.css';
 import { toast } from "react-toastify";
-// import { useSelector } from "react-redux";
-// import { selectCurrentUser } from "../../redux/fetures/auth/authSlice";
 
 const AllUsers = () => {
     const { data, isLoading: userLoading } = authApi.useGetALlUserQuery();
@@ -13,11 +11,6 @@ const AllUsers = () => {
     const [value, setValue] = useState('');
     const [subject, setSubject] = useState("");
     const [selectedEmails, setSelectedEmails] = useState([]);
-
-    // const currentUser = useSelector(selectCurrentUser);
-
-    // console.log(currentUser?.email);
-
 
     const modules = {
         toolbar: [
@@ -34,8 +27,7 @@ const AllUsers = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const data = { email: selectedEmails, subject, value, senderEmail : currentUser?.email };
-        const data = { email: selectedEmails, subject, value};
+        const data = { email: selectedEmails, subject, value };
 
         const res = await sendEmail(data);
         if (res?.data?.success) {
@@ -94,7 +86,6 @@ const AllUsers = () => {
                             </div>
                         )
                     }
-
                 </div>
 
                 <div className="col-span-3">
@@ -112,6 +103,7 @@ const AllUsers = () => {
                             value={value}
                             onChange={setValue}
                         />
+
                         <div className="mt-3">
                             <button type="submit" className="button w-[120px] flex items-center justify-center py-2 mb-10">
                                 {
